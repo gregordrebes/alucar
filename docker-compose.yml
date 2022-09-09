@@ -1,0 +1,23 @@
+version: '3.5'
+
+services:
+    postgres-db:
+        container_name: postgres_bd
+        image: postgres:latest
+        environment:
+            POSTGRES_USER: root
+            POSTGRES_PASSWORD: root
+            POSTGRES_DB: 'crud_db'
+            POSTGRES_ROOT_USER: root
+            POSTGRES_ROOT_PASSWORD: root
+        volumes:
+            - crud_db:/data/postgres
+        ports:
+            - "3306:5432"
+        networks:
+            - postgres 
+networks:
+    postgres:
+        driver: bridge
+volumes:
+   crud_db:
