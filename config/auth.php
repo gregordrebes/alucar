@@ -28,7 +28,7 @@ return [
     | here which uses session storage and the Eloquent user provider.
     |
     | All authentication drivers have a user provider. This defines how the
-    | user are actually retrieved out of your database or other storage
+    | users are actually retrieved out of your database or other storage
     | mechanisms used by this application to persist your user's data.
     |
     | Supported: "session"
@@ -48,7 +48,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | All authentication drivers have a user provider. This defines how the
-    | user are actually retrieved out of your database or other storage
+    | users are actually retrieved out of your database or other storage
     | mechanisms used by this application to persist your user's data.
     |
     | If you have multiple user tables or models you may configure multiple
@@ -60,12 +60,12 @@ return [
     */
 
     'providers' => [
-        'user' => [
+        'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
 
-        // 'user' => [
+        // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
@@ -87,8 +87,8 @@ return [
     */
 
     'passwords' => [
-        'user' => [
-            'provider' => 'user',
+        'users' => [
+            'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

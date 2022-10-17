@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\NavegadorController;
+use App\Http\Controllers\NavigadorController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +15,24 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+   // return view('welcome');
+//});
 
-Route::resource('users', UserController::class);
-Route::any('users/search', [UserController::class, 'search'])->name('/users/search');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
+
+Route::get('/',[NavegadorController::class, 'home'])->name('home');
+
+Route::get('/agencia',[NavegadorController::class, 'agencia'])->name('agencia');
+
+//Route::get('/registerAgency', [RegisteredAgencyController::class, 'create'])->name('registerAgency');
+
+//Route::post('registerAgency', [RegistredAgencyController::class, 'store'])->name('registerAgency');
+
+Route::get('registerAgency', [NavegadorController::class, 'create'])->name('registerAgency');
+
+Route::post('registerAgency', [NavegadorController::class, 'store']);
