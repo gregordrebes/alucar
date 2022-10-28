@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\NavegadorController;
-use App\Http\Controllers\NavigadorController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,24 +17,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/', function () {
-   // return view('welcome');
-//});
+Route::get('/', function () {
+    return view('welcome');
+});
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+Auth::routes();
+  
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+  
 
-Route::get('/',[NavegadorController::class, 'home'])->name('home');
-
-Route::get('/agencia',[NavegadorController::class, 'agencia'])->name('agencia');
-
-//Route::get('/registerAgency', [RegisteredAgencyController::class, 'create'])->name('registerAgency');
-
-//Route::post('registerAgency', [RegistredAgencyController::class, 'store'])->name('registerAgency');
-
-Route::get('registerAgency', [NavegadorController::class, 'create'])->name('registerAgency');
-
-Route::post('registerAgency', [NavegadorController::class, 'store']);
+Route::group(['middleware' => ['auth']], function() {
+    Route::resource('roles', RoleController::class);
+    Route::resource('users', UserController::class);
+    Route::resource('products', ProductController::class);
+});

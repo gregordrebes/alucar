@@ -1,23 +1,73 @@
-version: '3.5'
+version: "3.7"
 
 services:
-    postgres-db:
-        container_name: postgres_bd
-        image: postgres:latest
-        environment:
-            POSTGRES_USER: root
-            POSTGRES_PASSWORD: root
-            POSTGRES_DB: 'crud_db'
-            POSTGRES_ROOT_USER: root
-            POSTGRES_ROOT_PASSWORD: root
+    # image project alucar 09-2022
+    app:
+        container_name: alucar-laravel
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: alucar/laravel-app
+        restart: unless-stopped
+        working_dir: /var/www/
         volumes:
-            - crud_db:/data/postgres
-        ports:
-            - "3306:5432"
-        networks:
-            - postgres 
-networks:
-    postgres:
+            - ./:/var/www
+        depends_on: 
+            - redis
+        networks: 
+            - laravel
+    
+    # nginx
+    nginx:
+        container_name: alucar-nginx
+        image: nginx:alpine
+        restart: unless-stopped
+        ports: 
+            - "80:80"
+        volumes: 
+            - ./:/var/www
+            - ./docker/nginx/:/etc/nginx/conf.d/
+        networks: 
+            - laravel
+
+    # db mysql
+    mysql:
+        container_name: alucar-mysql
+        image: mysql:5.7.22
+        restart: unless-stopped
+        environment: 
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_USER: ${DB_USERNAME}
+        volumes: 
+            - ./.docker/mysql/dbdata:/var/lib/mysql
+        ports: 
+            - "3388:3306"
+        networks: 
+            - laravel
+
+    # queue
+    queue:
+        container_name: alucar-queue
+        image: alucar/laravel-app
+        restart: unless-stopped
+        command: "php artisan queue:work"
+        volumes: 
+            - ./:/var/www
+        depends_on: 
+            - redis
+            - app
+        networks: 
+            - laravel
+
+    # redis
+    redis:
+        container_name: alucar-redis
+        image: redis:latest
+        networks: 
+            - laravel
+
+networks: 
+    laravel:
         driver: bridge
-volumes:
-   crud_db:
