@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAgencyTable extends Migration
+class CreateRentTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateAgencyTable extends Migration
      */
     public function up()
     {
-        Schema::create('agency', function (Blueprint $table) {
+        Schema::create('rent', function (Blueprint $table) {
             $table->id();
-            $table->string('descricao')->unique();
-            $table->string('endereco');
-            $table->string('cidade');
+            $table->integer("id_usuario");
+            $table->integer("id_veiculo");
+            $table->decimal('valor_total', 8, 2);
+            $table->date("data_inicial");
+            $table->date("data_final");
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class CreateAgencyTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('agency');
+        Schema::dropIfExists('rent');
     }
 }

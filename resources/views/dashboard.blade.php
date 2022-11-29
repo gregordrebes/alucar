@@ -9,18 +9,17 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <table class="table table-primary table-hover">                   
-                    
+                    <table class="table table-primary table-hover">
                         <thead class="thead-primary">
-    
-                            <th> ID </th>                
+
+                            <th> ID </th>
                             <th> Descricao </th>
                             <th> Endereço</th>
-                            <th> Cidade </th>                    
-    
+                            <th> Cidade </th>
+
                         </thead>
-    
-                      
+
+
                     </table>
                 </div>
             </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Rent;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -25,7 +26,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->paginate(10);
+        $products = Product::whereNotExists(function ($query) {
+            $query->select("rent.id_veiculo")->from('rent')->whereColumn("rent.id_veiculo", "=", "products.id");
+        })->latest()->paginate(10);
         return view('products.indexHome',compact('products'))->with('i', (request()->input('page', 1) - 1) * 10);
     }
 }

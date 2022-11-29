@@ -21,27 +21,37 @@
 
     <div class="row">
 
-        @if (count($products)>0)
-        @foreach ($products as $product)
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <a class="lightbox" href="">
-                    <img src="{{ url("/image/$product->image") }}" alt="Park">
-                    <strong>{{ $product->name }}</strong>
-                    <strong>{{ $product->detail }}</strong>
-                    <strong>R$ {{ $product->price }}</strong>
-                </a>
-                <strong>Adicionado em {{ $product->created_at }}</strong>
+        @forelse ($products as $product)
+        <div class="col-md-4" style='border: 1px solid black;'>
+            <div class="card mb-4 box-shadow">
+              <img class="card-img-top"  alt="Imagem {{$product->name}}" style="height: 225px; width: 100%; display: block;" src="{{ url("/image/$product->image") }}" data-holder-rendered="true">
+              <div class="card-body">
+                <p class="card-text">
+                    <h3>{{ $product->name }}</h3>
+
+                    {{ $product->detail }}
+                    <br>
+                    R$ {{ $product->price }}
+                    <br>
+                    Adicionado em {{ $product->created_at }}
+                </p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <a href="{{ route('rent.create', ["id_product"=>$product->id]) }}" class="btn btn-sm btn-outline-secondary">Alugar</a>
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
-        @endforeach
-        @endif
+          </div>
+        @empty
+
+        @endforelse
 
     </div>
-    
+
 
 </div>
-    
+
     {!! $products->links() !!}
 
 

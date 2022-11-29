@@ -12,8 +12,8 @@
 
     <!-- Bootstrap core CSS antigo-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Bootstrap core CSS - Atualizado 20/09/2022 -->
     <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">-->
 
@@ -30,7 +30,7 @@
     <![endif]-->
   </head>
 <body>
-    
+
 
 
 
@@ -52,7 +52,7 @@
             <li class="active"><a href="{{ url('/') }}">Início</a></li>
 
           </ul>
-          
+
           <ul class="nav navbar-nav navbar-right">
 
                        <!-- Authentication Links -->
@@ -60,9 +60,10 @@
                             <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
                             <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
                         @else
-                            <li><a class="nav-link" href="{{ route('users.index') }}">Gestão Usuário</a></li>
-                            <li><a class="nav-link" href="{{ route('roles.index') }}">Gestão Regras</a></li>
-                            <li><a class="nav-link" href="{{ route('products.index') }}">Gestão Produto</a></li>
+                            <li><a class="nav-link" href="{{ route('rent.index') }}">Aluguéis</a></li>
+                            <li><a class="nav-link" href="{{ route('users.index') }}">Usuário</a></li>
+                            <li><a class="nav-link" href="{{ route('roles.index') }}">Regras</a></li>
+                            <li><a class="nav-link" href="{{ route('products.index') }}">Produto</a></li>
                             <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
@@ -71,33 +72,33 @@
                                     <a href="{{ route('logout') }}"
                                       onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    
-                                      {{ __('Logout') }}                                
+
+                                      {{ __('Logout') }}
                                     </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
-                                  </li>                                
-                                </ul>                            
-                              </li>                            
+                                  </li>
+                                </ul>
+                              </li>
                         @endguest
 
           </ul>
-          
+
         </div><!--/.nav-collapse -->
       </div>
     </nav>
 
 
     <div class="container">
-            @yield('content')          
-        
+            @yield('content')
+
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
-    
-    
+
+
 
 </body>
 </html>
